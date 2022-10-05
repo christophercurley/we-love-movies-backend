@@ -47,4 +47,5 @@ module.exports = {
   read,
   listTheatersByMovie,
   listReviewsByMovie,
+  reduceReviews,
 };
