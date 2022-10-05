@@ -29,8 +29,11 @@ async function listTheatersByMovie(req, res) {
 }
 
 async function listReviewsByMovie(req, res) {
-  const { movie: data } = res.locals;
-  res.json({ data: await moviesService.listReviewsByMovie(data.movie_id) });
+  const { movie } = res.locals;
+  console.log("line 33 data", movie);
+  const wCriticData = await moviesService.listReviewsByMovie(movie);
+  console.log("line 35 wcriticdata", wCriticData);
+  res.json({ wCriticData });
 }
 
 module.exports = {

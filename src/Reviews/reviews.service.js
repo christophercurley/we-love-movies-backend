@@ -18,6 +18,10 @@ function update(updatedReview) {
     .update(updatedReview, "*");
 }
 
+function destroy(review_id) {
+  return knex("reviews").where({ review_id }).del();
+}
+
 function addedCritics(updatedReview) {
   return knex("reviews as r")
     .join("critics as c", "r.critic_id", "c.critic_id")
@@ -27,4 +31,4 @@ function addedCritics(updatedReview) {
     .then(addCritics);
 }
 
-module.exports = { read, update, addedCritics };
+module.exports = { read, update, destroy, addedCritics };

@@ -52,11 +52,13 @@ async function update(req, res) {
   // console.log("updated ", updatedReview);
   await reviewsService.update(updatedReview);
   const data = await reviewsService.addedCritics(updatedReview);
-  console.log(data);
+  // console.log(data);
   res.json({ data });
 }
 
 async function destroy(req, res) {
+  const { review } = res.locals;
+  await reviewsService.destroy(review.review_id);
   res.sendStatus(204);
 }
 

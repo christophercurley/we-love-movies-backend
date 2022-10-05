@@ -1,5 +1,6 @@
 const knex = require("../db/connection");
 const reduceProperties = require("../utils/reduce-properties");
+const mapProperties = require("../utils/map-properties");
 
 // I changed all movies with movie_id to "is_showing=false" in the movie_theaters table. If that causes problems with the tests, change back.
 
@@ -33,12 +34,18 @@ const reduceReviews = reduceProperties("critic_id", {
   organization_name: ["critic", null, "organization_name"],
 });
 
-function listReviewsByMovie(movieId) {
+const addCritics = mapProperties({
+  preferred_name: "critic.preferred_name",
+  surname: "critic.surname",
+  organization_name: "critic.organization_name",
+});
+
+function listReviewsByMovie(movie) {
   return knex("movies as m")
     .join("reviews as r", "m.movie_id", "r.movie_id")
     .join("critics as c", "r.critic_id", "c.critic_id")
     .select("r.*", "c.*")
-    .where({ "m.movie_id": movieId })
+    .where({ "m.movie_id": movie.movie_id })
     .then(reduceReviews);
 }
 
