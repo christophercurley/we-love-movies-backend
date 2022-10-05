@@ -19,7 +19,12 @@ function read(movieId) {
 }
 
 function listTheatersByMovie(movieId) {
-  return knex("movies").select("*");
+  // return knex("movies").select("*").where({ movie_id: movieId });
+  return knex("movies as m")
+    .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
+    .join("theaters as t", "mt.theater_id", "t.theater_id")
+    .select("t.*", "mt.*")
+    .where({ "m.movie_id": movieId });
 }
 
 module.exports = {

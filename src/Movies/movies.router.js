@@ -8,7 +8,7 @@ router.use(cors());
 router.route("/").get(controller.list).all(methodNotAllowed);
 
 router
-  .route("/:moviesId([0-9]+)/theaters")
+  .route("/:movieId([0-9]+)/theaters")
   .get(controller.listTheatersByMovie)
   .all(methodNotAllowed);
 

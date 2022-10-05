@@ -13,8 +13,9 @@ async function read(req, res) {
 }
 
 async function movieExists(req, res, next) {
-  console.log(req.params);
+  // console.log("params", req.params);
   const movie = await moviesService.read(req.params.movieId);
+  // console.log("movie: ", movie);
   if (movie) {
     res.locals.movie = movie;
     return next();
@@ -22,10 +23,11 @@ async function movieExists(req, res, next) {
   next({ status: 404, message: "Movie not found." });
 }
 
-async function listTheatersByMovie(res, req) {
+async function listTheatersByMovie(req, res) {
+  // console.log("locals ", res.locals);
   const { movie: data } = res.locals;
-  console.log("data", data);
-  res.json({ data: await controller.listTheatersByMovie(data.movie_id) });
+  // console.log("data", data);
+  res.json({ data: await moviesService.listTheatersByMovie(data.movie_id) });
 }
 
 module.exports = {
