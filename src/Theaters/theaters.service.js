@@ -10,8 +10,6 @@ const reduceMovies = reduceProperties("theater_id", {
   image_url: ["movies", null, "img_url"],
   created_at: ["movies", null, "created_at"],
   updated_at: ["movies", null, "updated_at"],
-  // is_showing: ["movies", null, "is_showing"],
-  // theater_id: ["movies", null, "theater_id"],
 });
 
 function list() {

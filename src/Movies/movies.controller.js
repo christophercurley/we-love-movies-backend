@@ -13,9 +13,9 @@ async function read(req, res) {
 }
 
 async function movieExists(req, res, next) {
-  // console.log("params", req.params);
   const movie = await moviesService.read(req.params.movieId);
-  // console.log("movie: ", movie);
+  console.log("params ", req.params);
+
   if (movie) {
     res.locals.movie = movie;
     return next();
@@ -24,14 +24,18 @@ async function movieExists(req, res, next) {
 }
 
 async function listTheatersByMovie(req, res) {
-  // console.log("locals ", res.locals);
   const { movie: data } = res.locals;
-  // console.log("data", data);
   res.json({ data: await moviesService.listTheatersByMovie(data.movie_id) });
+}
+
+async function listReviewsByMovie(req, res) {
+  const { movie: data } = res.locals;
+  res.json({ data: await moviesService.listReviewsByMovie(data.movie_id) });
 }
 
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(movieExists), read],
   listTheatersByMovie: [asyncErrorBoundary(movieExists), listTheatersByMovie],
+  listReviewsByMovie: [asyncErrorBoundary(movieExists), listReviewsByMovie],
 };

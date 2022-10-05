@@ -12,6 +12,11 @@ router
   .get(controller.listTheatersByMovie)
   .all(methodNotAllowed);
 
+router
+  .route("/:movieId([0-9])+/reviews")
+  .get(controller.listReviewsByMovie)
+  .all(methodNotAllowed);
+
 router.route("/:movieId([0-9]+)").get(controller.read).all(methodNotAllowed);
 
 module.exports = router;
