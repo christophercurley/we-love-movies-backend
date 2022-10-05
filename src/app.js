@@ -3,11 +3,13 @@ const express = require("express");
 const app = express();
 const moviesRouter = require("./Movies/movies.router");
 const theatersRouter = require("./Theaters/theaters.router");
+const reviewsRouter = require("./Reviews/reviews.router");
 
 app.use(express.json());
 
 app.use("/movies", moviesRouter);
 app.use("/theaters", theatersRouter);
+app.use("/reviews", reviewsRouter);
 
 app.use((req, res, next) => {
   next({ status: 404, message: `Not found: ${req.originalUrl}` });
