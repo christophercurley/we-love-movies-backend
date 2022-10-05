@@ -14,13 +14,13 @@ async function read(req, res) {
 
 async function movieExists(req, res, next) {
   const movie = await moviesService.read(req.params.movieId);
-  console.log("params ", req.params);
+  // console.log("params ", req.params);
 
   if (movie) {
     res.locals.movie = movie;
     return next();
   }
-  next({ status: 404, message: "Movie not found." });
+  next({ status: 404, message: "Movie cannot be found." });
 }
 
 async function listTheatersByMovie(req, res) {
@@ -30,10 +30,10 @@ async function listTheatersByMovie(req, res) {
 
 async function listReviewsByMovie(req, res) {
   const { movie } = res.locals;
-  console.log("line 33 data", movie);
-  const wCriticData = await moviesService.listReviewsByMovie(movie);
-  console.log("line 35 wcriticdata", wCriticData);
-  res.json({ wCriticData });
+  // console.log("line 33 data", movie);
+  const data = await moviesService.listReviewsByMovie(movie);
+  console.log("line 35 wcriticdata", data);
+  res.json({ data });
 }
 
 module.exports = {
