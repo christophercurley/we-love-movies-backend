@@ -14,7 +14,6 @@ async function read(req, res) {
 
 async function movieExists(req, res, next) {
   const movie = await moviesService.read(req.params.movieId);
-  console.log("movieId params ", req.params);
 
   if (movie) {
     res.locals.movie = movie;
@@ -34,7 +33,6 @@ async function listTheatersByMovie(req, res) {
 async function listReviewsByMovie(req, res) {
   const { movie } = res.locals;
   const data = await moviesService.listReviewsByMovie(movie);
-  // console.log("line 35 data length", data);
   res.json({ data });
 }
 

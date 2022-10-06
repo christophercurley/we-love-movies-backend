@@ -1,7 +1,5 @@
 const knex = require("../db/connection");
 
-// I changed all movies with movie_id to "is_showing=false" in the movie_theaters table. If that causes problems with the tests, change back.
-
 function list(is_showing) {
   return is_showing
     ? knex("movies as m")
@@ -29,7 +27,6 @@ function stripCriticInfo(moviesData) {
   console.log("moviesData.length: ", moviesData.length);
   for (let i = 0; i < moviesData.length; i++) {
     const movieD = moviesData[i];
-    // console.log("initial: ", movieD);
 
     movieD.critic = {};
     movieD.critic.preferred_name = movieD.preferred_name;
@@ -39,8 +36,6 @@ function stripCriticInfo(moviesData) {
     delete movieD.preferred_name;
     delete movieD.surname;
     delete movieD.organization_name;
-
-    // console.log("stripped: ", movieD);
   }
   return moviesData;
 }
