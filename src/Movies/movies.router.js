@@ -13,7 +13,7 @@ router
   .all(methodNotAllowed);
 
 router
-  .route("/:movieId([0-9])+/reviews")
+  .route("/:movieId/reviews")
   .get(controller.listReviewsByMovie)
   .all(methodNotAllowed);
 

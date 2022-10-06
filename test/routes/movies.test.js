@@ -80,7 +80,6 @@ describe("Movie Routes", () => {
 
     test("GET `/movies/:movieId/reviews` returns the reviews, with critic property, for the specified movie_id", async () => {
       const previous = await db("movies").first();
-      // console.log(previous.movie_id);
       const response = await request(app).get(
         `/movies/${previous.movie_id}/reviews`
       );

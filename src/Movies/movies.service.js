@@ -1,6 +1,4 @@
 const knex = require("../db/connection");
-const reduceProperties = require("../utils/reduce-properties");
-const mapProperties = require("../utils/map-properties");
 
 // I changed all movies with movie_id to "is_showing=false" in the movie_theaters table. If that causes problems with the tests, change back.
 
@@ -27,18 +25,25 @@ function listTheatersByMovie(movieId) {
     .where({ "m.movie_id": movieId });
 }
 
-const reduceReviews = reduceProperties("critic_id", {
-  critic_id: ["critic", null, "critic_id"],
-  preferred_name: ["critic", null, "preferred_name"],
-  surname: ["critic", null, "surname"],
-  organization_name: ["critic", null, "organization_name"],
-});
+function stripCriticInfo(moviesData) {
+  console.log("moviesData.length: ", moviesData.length);
+  for (let i = 0; i < moviesData.length; i++) {
+    const movieD = moviesData[i];
+    // console.log("initial: ", movieD);
 
-const addCritics = mapProperties({
-  preferred_name: "critic.preferred_name",
-  surname: "critic.surname",
-  organization_name: "critic.organization_name",
-});
+    movieD.critic = {};
+    movieD.critic.preferred_name = movieD.preferred_name;
+    movieD.critic.surname = movieD.surname;
+    movieD.critic.organization_name = movieD.organization_name;
+
+    delete movieD.preferred_name;
+    delete movieD.surname;
+    delete movieD.organization_name;
+
+    // console.log("stripped: ", movieD);
+  }
+  return moviesData;
+}
 
 function listReviewsByMovie(movie) {
   return knex("movies as m")
@@ -46,7 +51,7 @@ function listReviewsByMovie(movie) {
     .join("critics as c", "r.critic_id", "c.critic_id")
     .select("r.*", "c.*")
     .where({ "m.movie_id": movie.movie_id })
-    .then(reduceReviews);
+    .then(stripCriticInfo);
 }
 
 module.exports = {
@@ -54,5 +59,4 @@ module.exports = {
   read,
   listTheatersByMovie,
   listReviewsByMovie,
-  reduceReviews,
 };
