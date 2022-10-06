@@ -7,7 +7,7 @@ const reduceMovies = reduceProperties("theater_id", {
   runtime_in_minutes: ["movies", null, "runtime_in_minutes"],
   rating: ["movies", null, "rating"],
   description: ["movies", null, "description"],
-  image_url: ["movies", null, "img_url"],
+  image_url: ["movies", null, "image_url"],
   created_at: ["movies", null, "created_at"],
   updated_at: ["movies", null, "updated_at"],
 });

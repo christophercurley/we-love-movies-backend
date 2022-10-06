@@ -8,7 +8,7 @@ router.use(cors());
 router.route("/").get(controller.list).all(methodNotAllowed);
 
 router
-  .route("/:movieId([0-9]+)/theaters")
+  .route("/:movieId/theaters")
   .get(controller.listTheatersByMovie)
   .all(methodNotAllowed);
 
@@ -17,6 +17,6 @@ router
   .get(controller.listReviewsByMovie)
   .all(methodNotAllowed);
 
-router.route("/:movieId([0-9]+)").get(controller.read).all(methodNotAllowed);
+router.route("/:movieId").get(controller.read).all(methodNotAllowed);
 
 module.exports = router;
