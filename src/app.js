@@ -4,6 +4,9 @@ const app = express();
 const moviesRouter = require("./Movies/movies.router");
 const theatersRouter = require("./Theaters/theaters.router");
 const reviewsRouter = require("./Reviews/reviews.router");
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(express.json());
 
